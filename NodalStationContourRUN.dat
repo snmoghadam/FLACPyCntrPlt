@@ -1,0 +1,39 @@
+;---------------Fish Function for Grid Point Contour Plot---------------------
+;---Output File Name                         >> OutFileCont
+;---Left   i of output                       >> ILEFT
+;---right  i of output                       >> IRIGT
+;---Bottom j of output                       >> JBOT
+;---Top j of output                          >> JTOP
+;---Top    y of Model                        >> YTOP
+;---Bottom y of Model                        >> YBOT
+;---Left  X of Model                         >> XLEFT
+;---Right X of Model                         >> XRIGT
+;---Tolernce for Top y of Model              >> TTOLY
+;---Tolernce for Bot y of Model              >> BTOLY
+;-----------------------------------------------------------------------------
+;---A1 i=1,1141 j=1,119    (J=1 is the first row)
+
+;-----------------------------------------------------------------------------
+;---A1: y1=175 y2=293 x1=0 x2=1140
+
+;-------------------------------A1 Output Contour-----------------------------
+  new
+  res 4_FHCP1SA2_S3EXCV.sav
+  table 24 0,293 1140,293
+  table 25 0,175 1140,175
+
+  call NodalStationContour.fis
+  set OutFileCont='A1_EXCVS3_NOD_Contour.dat' 
+  set ILEFT=1
+  set IRIGT=1141
+  set JBOT=1
+  set JTOP=119
+  set YTOP=24
+  set YBOT=25
+  set XLEFT=0
+  set XRIGT=1140
+  set TTOLY=0.5
+  set BTOLY=0.5
+  NodeStatContour
+
+

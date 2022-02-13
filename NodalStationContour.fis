@@ -1,0 +1,63 @@
+;---------------Fish Function for Grid Point Contour Plot---------------------
+;---Output File Name Displacement Contour    >> OutFileCont
+;---Left   i of output                       >> ILEFT
+;---right  i of output                       >> IRIGT
+;---Top    j of output                       >> JBOT
+;---Bottom j of output                       >> JTOP
+;---Top    y of Model                        >> YTOP
+;---Bottom y of Model                        >> YBOT
+;---Left  X of Model                         >> XLEFT
+;---Right X of Model                         >> XRIGT
+;---Tolernce for Top y of Model              >> TTOLY
+;---Tolernce for Bot y of Model              >> BTOLY
+;-----------------------------------------------------------------------------
+
+def NodeStatContour
+  ;---------------File I-O Parameters-----------------------------------------
+  IO_READ  = 0
+  IO_WRITE = 1
+  IO_FISH  = 0
+  IO_ASCII = 1
+  array TempOutDat(1)
+  OFStatCont = open(OutFileCont, IO_WRITE, IO_ASCII)
+  ;---------------A1----------------------------------------------------------
+  TempOutDat(1)= '----------------------------'
+  OFStatCont = write(TempOutDat,1)  
+  TempOutDat(1)= 'i    j    x    y     x_disp'
+  OFStatCont = write(TempOutDat,1)  
+  TempOutDat(1)= '----------------------------'
+  OFStatCont = write(TempOutDat,1)  
+  loop jnod(1,jgp)
+    loop inod(1,igp)
+      if inod>=ILEFT  then
+        if inod<=IRIGT  then
+          if jnod>=JBOT  then
+            if jnod<=JTOP  then
+              XNOD=x(inod,jnod)
+              YNOD=y(inod,jnod)
+              BOTEL=table(YBOT,XNOD)
+              BOTEL=BOTEL-BTOLY
+              TOPEL=table(YTOP,XNOD)
+              TOPEL=TOPEL+TTOLY
+              if YNOD>=BOTEL
+                if YNOD<=TOPEL
+                  if XNOD>=XLEFT
+                    if XNOD<=XRIGT
+                      DSPX=xdisp(inod,jnod)
+                      TempOutDat(1)= string(inod)  + ' ' + string(jnod)
+                      TempOutDat(1)= TempOutDat(1) + ' ' + string(XNOD)
+                      TempOutDat(1)= TempOutDat(1) + ' ' + string(YNOD)
+                      TempOutDat(1)= TempOutDat(1) + ' ' + string(DSPX)
+                      OFStatCont = write(TempOutDat,1)
+                    end_if
+                  end_if
+                end_if
+              end_if
+            end_if
+          end_if
+        end_if
+      end_if
+    end_loop
+  end_loop
+end
+
