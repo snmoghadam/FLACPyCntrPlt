@@ -1,2 +1,2 @@
 # FLACPyCntrPlt
-Displacement contour plot of FLAC analysis results by Python Matplotlib
+Contour plot of FLAC analysis results at grid points by Python Matplotlib
