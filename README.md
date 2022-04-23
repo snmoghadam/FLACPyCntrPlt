@@ -1,2 +1,2 @@
 # FLACPyCntrPlt
-Contour plot of FLAC analysis results at grid points by Python Matplotlib
+Contour plot of Geotechnical FLAC analysis results at grid points by Python Matplotlib
